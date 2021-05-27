@@ -1,0 +1,20 @@
+[
+	{
+		"id" : 1,
+		"first_name" : "Test",
+		"last_name" : "One",
+		"role_id": 2
+	},
+	{
+		"id" : 2,
+		"first_name" : "Test",
+		"last_name" : "Two",
+		"role_id": 3
+	},
+	{
+		"id" : 3,
+		"first_name" : "Test",
+		"last_name" : "Three",
+		"role_id": 1
+	}
+]
