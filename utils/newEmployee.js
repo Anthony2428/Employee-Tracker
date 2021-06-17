@@ -22,7 +22,7 @@ module.exports = newEmployee = async () => {
     {
         type: 'input',
         name: 'newHireRoleID',
-        message: 'Enter the new employee\'s role ID: ', 
+        message: 'Enter the new employee\'s role ID: (Role ID# must Exist)', 
     },
     {
         type: 'input',
@@ -54,8 +54,7 @@ module.exports = newEmployee = async () => {
                         return;
                     }
                     catch (err) {
-                        console.log('An Employee with that ID# already exists...');
-                        console.log('ID#\'s must be unique and numerical');
+                        console.log('Value Error, ID# must be unique, Role ID & Manager ID must be numerical and must exist.');
                     }
                 }
                 return;

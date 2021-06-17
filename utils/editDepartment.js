@@ -104,7 +104,7 @@ module.exports = departmentMenu = async () => {
             await departmentEdit(department, edit);
         }
         catch (err) {
-            console.log('A Department with that ID# does not exit!');
+            console.log('ID# must unique and numerical');
             console.log('Returning to the Department Main Menu...');
             return;
         }

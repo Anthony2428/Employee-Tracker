@@ -60,7 +60,7 @@ const employeeEdit = async (emp, edit) => {
                 await inquirer.prompt({
                     type: 'input', 
                     name: 'empRoleID', 
-                    message: 'Enter the new Role ID of this employee: '
+                    message: 'Enter the new Role ID of this employee (Role ID# must Exist): '
                 
                 }).then(async (response) => {
 
@@ -147,7 +147,7 @@ module.exports = editMenu = async () => {
             await employeeEdit(employee, edit);
         }
         catch (err) {
-            console.log('An employee with that ID# does not exit!');
+            console.log('Value Error, ID# must unique, Role ID and Manager ID must be numerical and must exist.');
             console.log('Returning to the Employee main menu...');
             return;
         }

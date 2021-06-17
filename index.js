@@ -8,6 +8,9 @@ const editDepartment = require('./utils/editDepartment');
 const newDepartment = require('./utils/newDepartment');
 const deleteEmployee = require('./utils/deleteEmployee');
 const deleteDepartment = require('./utils/deleteDepartment');
+const editRole = require('./utils/editRole');
+const newRole = require('./utils/newRole');
+const deleteRole = require('./utils/deleteRole');
 
 const employeeMenu = async (employees) => {
     let next = false;
@@ -46,7 +49,7 @@ const employeeMenu = async (employees) => {
     return;
 };
 
-const departmentMenu = async (departments) => {
+const departmentMenu = async () => {
     let next = false;
     await departmentQuery();
 
@@ -85,12 +88,62 @@ const departmentMenu = async (departments) => {
     while (next !== true);
     return;
 };
+
+const roleMenu = async () => {
+    let next = false;
+    await roleQuery();
+
+    do (await inquirer.prompt({
+        type: 'list',
+        name: 'roleAction',
+        message: 'Role Main Menu : What would you like to do?',
+        choices: ['New Role', 'Edit Role', 'Remove Role', 'Return']
+
+    }).then(async (response) => {
+
+        switch (response.roleAction) {
+            case 'New Role':
+                await newRole();                
+                await roleQuery();
+            break;
+
+            case 'Edit Role':
+                await editRole();
+                await roleQuery();
+            break;
+            
+            case 'Remove Role':
+                await deleteRole();
+                await roleQuery();
+            break;
+
+            default:
+                console.log('Returning to main menu...');
+                next = true
+            break;
+        };
+
+        return;
+    }))
+    while (next !== true);
+    return;
+};
 const departmentQuery = async () => {
     let departmentData = await Department.findAll();
 
     let departments = departmentData.map( (depo) => depo.get({ plain: true }));
 
     console.table(departments);
+
+    return;
+};
+
+const roleQuery = async () => {
+    let roleData = await Role.findAll();
+
+    let roles = roleData.map( (role) => role.get({ plain: true }));
+
+    console.table(roles);
 
     return;
 };
@@ -127,6 +180,7 @@ const startApplication = async () => {
                 break;
 
             case 'Add/Edit Role':
+                await roleMenu();
                 break;
 
             case 'Add/Edit Department':

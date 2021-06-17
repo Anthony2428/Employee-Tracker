@@ -37,8 +37,7 @@ module.exports = newDepartment = async () => {
                         return;
                     }
                     catch (err) {
-                        console.log('A Department with that ID# already exists...');
-                        console.log('ID#\'s must be unique and numerical');
+                        console.log('ID#\'s be must unique');
                     }
                 }
                 return;
