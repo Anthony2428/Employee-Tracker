@@ -3,7 +3,8 @@ const { Employee, Department, Role } = require('./models')
 const inquirer = require('inquirer');
 const cTable = require('console.table');
 const newHire = require('./utils/newEmployee');
-const editMenu = require('./utils/editEmployee')
+const editMenu = require('./utils/editEmployee');
+const deleteEmployee = require('./utils/deleteEmployee');
 
 
 const employeeMenu = async (employees) => {
@@ -27,6 +28,10 @@ const employeeMenu = async (employees) => {
                 await editMenu(employees);
             break;
             
+            case 'Remove Employee':
+                await deleteEmployee(employees);
+            break;
+            
             default:
                 console.log('Returning to main menu...');
                 next = true
@@ -37,14 +42,16 @@ const employeeMenu = async (employees) => {
     }))
     while (next !== true);
     return;
-}
+;}
+
 const employeeQuery = async () => {
     let employeeData = await Employee.findAll();
 
     let employees = employeeData.map( (emp) => emp.get({ plain: true }));
 
     return (employees);
-}
+};
+
 const startApplication = async () => {
     let next = false;
 

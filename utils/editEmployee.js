@@ -131,7 +131,7 @@ const employeeEdit = async (emp, edit) => {
     
 };
 
-module.exports = editMenu = async (employees) => {
+module.exports = editMenu = async () => {
     await inquirer.prompt({
         type: 'input', 
         name: 'empID', 
@@ -147,7 +147,8 @@ module.exports = editMenu = async (employees) => {
             await employeeEdit(employee, edit);
         }
         catch (err) {
-            console.log('An employee with that ID# does not exit! Returning to main menu...');
+            console.log('An employee with that ID# does not exit!');
+            console.log('Returning to the Employee main menu...');
             return;
         }
     });

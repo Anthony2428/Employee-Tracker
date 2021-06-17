@@ -51,7 +51,7 @@ module.exports = newEmployee = async ( newHire ) => {
                         
                     });
                     console.log('Employee added to Database');
-                    console.log('Returning to Employee main menu...');
+                    console.log('Returning to the Employee main menu...');
                     next = true;
                     return;
                 }
