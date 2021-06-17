@@ -4,8 +4,10 @@ const inquirer = require('inquirer');
 const cTable = require('console.table');
 const newHire = require('./utils/newEmployee');
 const editMenu = require('./utils/editEmployee');
+const editDepartment = require('./utils/editDepartment');
+const newDepartment = require('./utils/newDepartment');
 const deleteEmployee = require('./utils/deleteEmployee');
-
+const deleteDepartment = require('./utils/deleteDepartment');
 
 const employeeMenu = async (employees) => {
     let next = false;
@@ -31,7 +33,7 @@ const employeeMenu = async (employees) => {
             case 'Remove Employee':
                 await deleteEmployee(employees);
             break;
-            
+
             default:
                 console.log('Returning to main menu...');
                 next = true
@@ -42,7 +44,56 @@ const employeeMenu = async (employees) => {
     }))
     while (next !== true);
     return;
-;}
+};
+
+const departmentMenu = async (departments) => {
+    let next = false;
+    await departmentQuery();
+
+    do (await inquirer.prompt({
+        type: 'list',
+        name: 'empAction',
+        message: 'Department Main Menu : What would you like to do?',
+        choices: ['New Department', 'Edit Department', 'Remove Department', 'Return']
+
+    }).then(async (response) => {
+
+        switch (response.empAction) {
+            case 'New Department':
+                await newDepartment();                
+                await departmentQuery();
+            break;
+
+            case 'Edit Department':
+                await editDepartment();
+                await departmentQuery();
+            break;
+            
+            case 'Remove Department':
+                await deleteDepartment();
+                await departmentQuery();
+            break;
+
+            default:
+                console.log('Returning to main menu...');
+                next = true
+            break;
+        };
+
+        return;
+    }))
+    while (next !== true);
+    return;
+};
+const departmentQuery = async () => {
+    let departmentData = await Department.findAll();
+
+    let departments = departmentData.map( (depo) => depo.get({ plain: true }));
+
+    console.table(departments);
+
+    return;
+};
 
 const employeeQuery = async () => {
     let employeeData = await Employee.findAll();
@@ -72,13 +123,14 @@ const startApplication = async () => {
                 break;
 
             case 'Add/Edit Employee':
-                let newEmp = await employeeMenu(employees);
+                await employeeMenu(employees);
                 break;
 
             case 'Add/Edit Role':
                 break;
 
             case 'Add/Edit Department':
+                await departmentMenu()
                 break;
 
             default:

@@ -1,9 +1,8 @@
 const { Employee } = require('../models/index');
 const inquirer = require('inquirer');
 const cTable = require('console.table');
-const editEmployee = require('./editEmployee');
 
-module.exports = newEmployee = async ( newHire ) => {
+module.exports = newEmployee = async () => {
     let next = false
     const questions = [{
         type: 'input',
@@ -28,7 +27,7 @@ module.exports = newEmployee = async ( newHire ) => {
     {
         type: 'input',
         name: 'managerID',
-        message: 'Enter the manger\'s ID: ', 
+        message: 'Enter the manager\'s ID: ', 
     }];
     do (await inquirer.prompt(questions).then( async (response) => {
             console.table( response );
@@ -41,19 +40,23 @@ module.exports = newEmployee = async ( newHire ) => {
 
             }).then(async (response) => { 
                 if (response.newHireConfirm === 'Yes') {
-                    let newHire = await Employee.create({
-                        id: newHireInfo.newHireID,
-                        first_name: newHireInfo.newHireFirstName,
-                        last_name: newHireInfo.newHireLastName,
-                        role_id: newHireInfo.newHireRoleID,
-                        manager_id: newHireInfo.managerID,
-
-                        
-                    });
-                    console.log('Employee added to Database');
-                    console.log('Returning to the Employee main menu...');
-                    next = true;
-                    return;
+                    try { 
+                        let newHire = await Employee.create({
+                            id: newHireInfo.newHireID,
+                            first_name: newHireInfo.newHireFirstName,
+                            last_name: newHireInfo.newHireLastName,
+                            role_id: newHireInfo.newHireRoleID,
+                            manager_id: newHireInfo.managerID,
+                        });
+                        console.log('Employee added to Database');
+                        console.log('Returning to the Employee main menu...');
+                        next = true;
+                        return;
+                    }
+                    catch (err) {
+                        console.log('An Employee with that ID# already exists...');
+                        console.log('ID#\'s must be unique and numerical');
+                    }
                 }
                 return;
             });
