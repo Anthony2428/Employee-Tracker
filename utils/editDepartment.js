@@ -42,7 +42,7 @@ const departmentEdit = async (base, edit) => {
                     console.log('Setting Department ID...');
 
                 });
-            
+            break;
             default:
                 let original = Object.values(base)
                 let changes = Object.values(edit)

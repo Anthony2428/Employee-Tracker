@@ -12,9 +12,9 @@ const editRole = require('./utils/editRole');
 const newRole = require('./utils/newRole');
 const deleteRole = require('./utils/deleteRole');
 
-const employeeMenu = async (employees) => {
+const employeeMenu = async () => {
     let next = false;
-    console.table(employees);
+    await employeeQuery();
 
     do (await inquirer.prompt({
         type: 'list',
@@ -27,14 +27,17 @@ const employeeMenu = async (employees) => {
         switch (response.empAction) {
             case 'New Employee':
                 await newHire();
+                await employeeQuery();
             break;
 
             case 'Edit Employee':
-                await editMenu(employees);
+                await editMenu();
+                await employeeQuery();
             break;
             
             case 'Remove Employee':
-                await deleteEmployee(employees);
+                await deleteEmployee();
+                await employeeQuery();
             break;
 
             default:
@@ -55,13 +58,14 @@ const departmentMenu = async () => {
 
     do (await inquirer.prompt({
         type: 'list',
-        name: 'empAction',
+        name: 'departmentAction',
         message: 'Department Main Menu : What would you like to do?',
         choices: ['New Department', 'Edit Department', 'Remove Department', 'Return']
 
     }).then(async (response) => {
 
-        switch (response.empAction) {
+        switch (response.departmentAction) {
+            
             case 'New Department':
                 await newDepartment();                
                 await departmentQuery();
@@ -153,7 +157,9 @@ const employeeQuery = async () => {
 
     let employees = employeeData.map( (emp) => emp.get({ plain: true }));
 
-    return (employees);
+    console.table(employees);
+
+    return;
 };
 
 const startApplication = async () => {
@@ -167,16 +173,14 @@ const startApplication = async () => {
 
     }).then(async (response) => {
 
-        let employees = await employeeQuery();
-
         switch (response.action) {
 
             case 'View all Employees':
-                console.table(employees);;
+                await employeeQuery();
                 break;
 
             case 'Add/Edit Employee':
-                await employeeMenu(employees);
+                await employeeMenu();
                 break;
 
             case 'Add/Edit Role':

@@ -55,7 +55,7 @@ const employeeEdit = async (emp, edit) => {
                     console.log('Setting ID...');
 
                 });
-
+            break;
             case 'Role ID':
                 await inquirer.prompt({
                     type: 'input', 
