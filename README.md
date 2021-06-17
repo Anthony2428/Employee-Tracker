@@ -11,7 +11,7 @@ A solution for managing a company's employees using node, inquirer, and MySQL. <
 - [Contact](#contact) <br />
 ## Installation
 1. Install Node. <br />
-2. Clone Repository. <br />, 
+2. Clone Repository. <br /> 
 3. Create and establish a connection to a MySQL Database. <br />
 4. Create a .env file at the root of the repo, and set enviromental variables with your MySQL Database credentials.<br />
 5. Seeding data is optional, Seeded Data can be manipulated. <br />
@@ -25,7 +25,7 @@ No license was needed for this application. <br />
 Anthony2428 <br />
 ## Tests
 ![Walkthrough of Web App:](./EmployeeTracker-Video.mov)<br />
-##Contact 
+## Contact 
 Email: alopez0218.al@gmail.com<br /><br />
 GitHub: [Anthony2428](https://github.com/Anthony2428)<br />
 <br />
